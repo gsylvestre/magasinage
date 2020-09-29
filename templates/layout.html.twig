@@ -1,0 +1,38 @@
+{#
+    Ce fichier sert de base HTML commune à toutes les pages de notre site.
+    Il est destiné à être "extends" par toutes les fichiers twig spécifiques à chaque page
+    On pourrait avoir théoriquement 2 ou 3 layout différents si on voulait, mais typiquement, un seul suffit
+#}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {# ce bloc title peut être écrasé / remplacé depuis les autres fichiers twig ! #}
+    <title>{% block title %}Magasinage{% endblock %}</title>
+
+    {# pour faire un lien vers un css, un js ou une image, on utilise toujours la fct asset().
+    on s'assure ainsi que les liens seront toujours ok #}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Magasinage</h1>
+        <nav>
+            {# pour faire un lien vers une autre page de notre site, on utilise toujours path() ou url() #}
+            <a href="{{ path('home') }}">Accueil</a>
+            <a href="{{ path('cgv') }}">CGV</a>
+        </nav>
+    </header>
+    <main>
+        {% block main %}
+            {# ici le block est vide par défaut. Si on ne le remplace pas, il n'y aura pas de contenu. #}
+        {% endblock %}
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>

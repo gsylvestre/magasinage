@@ -1,0 +1,52 @@
+{#
+    on hérite de tout ce qui se trouve dans layout.html.twig
+    tout le contenu de ce fichier devra se trouver dans un bloc du coup
+    (sinon Twig ne sait pas où l'insérer dans le fichier layout.html.twig)
+#}
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+    <!-- commentaire html -->
+    {# ceci est un commentaire twig #}
+
+    {# les {{ }} permettent de faire l'équivalent d'un echo #}
+    {{ 'une chaîne' }}
+
+    {# boucle sur le tableau créé dans le contrôleur #}
+    {% for product in featuredProducts %}
+        {# ici, product contient une chaîne, donc on peut faire un echo direct #}
+        <div>{{ product }}</div>
+    {% endfor %}
+
+    {# crée un tableau d'objets ! #}
+    {% set products = [
+        {"title": "poutine", "price": 12.54},
+        {"title": "sirop", "price": 5.54}
+    ] %}
+
+    {# condition if else #}
+    {# le filtre length permet de compter le nombre d'éléments dans un tableau #}
+    {% if products|length > 100 %}
+        <p>trop de produits</p>
+    {% else %}
+        <p>pas assez de produits</p>
+    {% endif %}
+
+    <ul>
+        {# boucle sur notre tableau d'objets #}
+        {% for product in products %}
+            {# la variable loop est créée par Twig, et contient plein d'infos sur l'itération actuelle #}
+            {# on accède aux propriétés d'un objet avec l'opérateur . en Twig #}
+            <li>{{ loop.index }} {{ product.title }} {{ product.price }}</li>
+            {% if loop.last %}
+
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h1>coucou depuis l'accueil</h1>
+
+{% endblock %}
+
+{# parent() permet de réécrire le contenu du block parent écrasé ! #}
+{% block title %}{{ parent() }} | Accueil{% endblock %}
