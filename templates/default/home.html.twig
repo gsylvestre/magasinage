@@ -15,7 +15,7 @@
     {# boucle sur le tableau créé dans le contrôleur #}
     {% for product in featuredProducts %}
         {# ici, product contient une chaîne, donc on peut faire un echo direct #}
-        <div>{{ product }}</div>
+        <div>{{ product.name }} {{ product.price }}€</div>
     {% endfor %}
 
     {# crée un tableau d'objets ! #}

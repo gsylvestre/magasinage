@@ -19,6 +19,37 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findHomepageProducts()
+    {
+        // DQL : Doctrine Query Language
+        /*
+        $dql = "SELECT p FROM App\Entity\Product p
+                WHERE p.price <= :maxPrice
+                ORDER BY p.dateCreated DESC";
+
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('maxPrice', 10);
+        $results = $query->getResult();
+        return $results;
+        */
+
+        // QueryBuilder : ensemble de méthodes OO qui permettent de construire dynamiquement une requête DQL
+        $queryBuilder = $this->createQueryBuilder('p');
+        $queryBuilder->addOrderBy('p.dateCreated', 'DESC');
+
+        $maxPrice = 10;
+
+        if ($maxPrice > 0) {
+            $queryBuilder->andWhere('p.price <= :maxPrice');
+            $queryBuilder->setParameter('maxPrice', 10);
+        }
+
+        $query = $queryBuilder->getQuery();
+        $results = $query->getResult();
+        return $results;
+    }
+
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

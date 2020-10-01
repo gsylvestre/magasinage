@@ -18,11 +18,12 @@ class DefaultController extends AbstractController
      * Le nom de la route sert à générer les URLs vers cette page
      * @Route("/", name="home")
      */
-    public function home(Request $request)
+    public function home(Request $request, ProductRepository $productRepository)
     {
         //un tableau de produits qu'on veut passer à Twig
         //normalement, ce serait un tableau d'objets provenant de la bdd
-        $products = ["caribou", "forêt"];
+
+        $products = $productRepository->findHomepageProducts();
 
         //idem
         $categories = ["nature", "bouffe"];
