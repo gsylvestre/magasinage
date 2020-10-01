@@ -15,24 +15,39 @@
 
     {# pour faire un lien vers un css, un js ou une image, on utilise toujours la fct asset().
     on s'assure ainsi que les liens seront toujours ok #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Magasinage</h1>
-        <nav>
-            {# pour faire un lien vers une autre page de notre site, on utilise toujours path() ou url() #}
-            <a href="{{ path('home') }}">Accueil</a>
-            <a href="{{ path('cgv') }}">CGV</a>
-        </nav>
-    </header>
-    <main>
-        {% block main %}
-            {# ici le block est vide par défaut. Si on ne le remplace pas, il n'y aura pas de contenu. #}
-        {% endblock %}
-    </main>
-    <footer>
+    <div class="container">
+        <header>
+            <h1>Magasinage</h1>
+            <nav>
+                {# pour faire un lien vers une autre page de notre site, on utilise toujours path() ou url() #}
+                <a href="{{ path('home') }}">Accueil</a>
+                <a href="{{ path('cgv') }}">CGV</a>
+            </nav>
+        </header>
 
-    </footer>
+        {{ dump(app) }}
+
+        {# read and display all flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <main>
+            {% block main %}
+                {# ici le block est vide par défaut. Si on ne le remplace pas, il n'y aura pas de contenu. #}
+            {% endblock %}
+        </main>
+        <footer>
+
+        </footer>
+    </div>
 </body>
 </html>

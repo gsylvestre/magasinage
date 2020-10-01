@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+    <h1>Ajout de produit</h1>
+    <div class="add-product-form">
+        {{  form_start(productForm)  }}
+        {{  form_widget(productForm)  }}
+        <button>gooooo</button>
+        {{  form_end(productForm)  }}
+    </div>
+{% endblock %}

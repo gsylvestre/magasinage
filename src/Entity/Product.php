@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @UniqueEntity(fields={"name"}, message="Ce produit existe déjà !")
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
 class Product
@@ -22,11 +25,22 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\NotBlank(message="Veuillez renseigner un nom de produit dude !")
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Au moins 2 caractères svp !",
+     *     max="100",
+     *     maxMessage="Max 100 caractères dude"
+     * )
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     private $name;
 
     /**
+     *
+     *
+     *
      * @ORM\Column(type="decimal", precision=6, scale=2)
      */
     private $price;
