@@ -26,10 +26,9 @@
                 {# pour faire un lien vers une autre page de notre site, on utilise toujours path() ou url() #}
                 <a href="{{ path('home') }}">Accueil</a>
                 <a href="{{ path('cgv') }}">CGV</a>
+                <a href="{{ path('product_add') }}">Ajouter un produit</a>
             </nav>
         </header>
-
-        {{ dump(app) }}
 
         {# read and display all flash messages #}
         {% for label, messages in app.flashes %}
@@ -46,7 +45,7 @@
             {% endblock %}
         </main>
         <footer>
-
+            <img src="{{ asset('img/penguin.gif') }}" id="penguin">
         </footer>
     </div>
 </body>

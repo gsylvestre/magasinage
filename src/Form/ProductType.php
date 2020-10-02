@@ -20,7 +20,6 @@ class ProductType extends AbstractType
                 'label' => 'Nom du produit',
                 'attr' => [
                     'class' => 'poufpaf',
-                    'pouet' => 'dfsdafs'
                 ],
             ])
             ->add('price', IntegerType::class, ['label' => 'Prix en euros'])
@@ -32,7 +31,7 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Product::class,
+            //'data_class' => Product::class,
         ]);
     }
 }

@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Review;
 use App\Form\ProductType;
+use App\Form\ReviewType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +14,33 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
+    /**
+     * @Route("/product/detail/{id}", name="product_detail")
+     */
+    public function detail(Product $product, Request $request)
+    {
+        $review = new Review();
+        $reviewForm = $this->createForm(ReviewType::class, $review);
+
+        $reviewForm->handleRequest($request);
+
+        if ($reviewForm->isSubmitted() && $reviewForm->isValid())
+        {
+            //hydrate
+            //associe cette review au produit actuel en lui passant l'objet au complet !
+            $review->setProduct($product);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($review);
+            $em->flush();
+        }
+
+        return $this->render('product/detail.html.twig', [
+            'product' => $product,
+            'reviewForm' => $reviewForm->createView()
+        ]);
+    }
+
     /**
      * @Route("/product/add", name="product_add")
      */
@@ -23,6 +53,8 @@ class ProductController extends AbstractController
 
         //demande à Symfony d'hydrater mon $product avec les données reçues
         $productForm->handleRequest($request);
+
+        //dd($product);
 
         //si le form est soumis et valide... on va sauvegarder en bdd
         if ($productForm->isSubmitted() && $productForm->isValid()){

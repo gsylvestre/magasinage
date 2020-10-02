@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+    {{ product.name }}
+
+    {% for review in product.reviews %}
+        <div>{{ review.rating }}</div>
+        <div>{{ review.comment }}</div>
+    {% endfor %}
+
+    <h3>Your rating?</h3>
+    {{ form(reviewForm) }}
+{% endblock %}
+
